@@ -55,6 +55,8 @@ class ViewController: UIViewController {
         setUpButton("県別状況", size: size, y: height + 240, color: colors.blue, parentView: view)
         setUpImageButton("chat", x: view.frame.size.width - 50).addTarget(self, action:
             #selector(chatAction), for: .touchDown)
+        setUpImageButton("reload", x: 10).addTarget(self, action:
+            #selector(reloadAction), for: .touchDown)
     }
     
     func setUpImageButton(_ name: String, x: CGFloat) -> UIButton {
@@ -66,6 +68,13 @@ class ViewController: UIViewController {
         view.addSubview(button)
         return button
     }
+    
+
+    @objc func reloadAction(){
+        loadView()
+        viewDidLoad()
+    }
+    
     @objc func chatAction() {
         print("タップchat")
     }

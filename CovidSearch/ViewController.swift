@@ -67,6 +67,49 @@ class ViewController: UIViewController {
             imageView.frame = CGRect(x: self.view.frame.size.width - 100, y: -65, width: 50, height: 50)
             imageView.transform = CGAffineTransform(rotationAngle: -90)
         }, completion: nil)
+        
+        setUpAPI(parentView: contentView)
+    }
+    
+    func setUpAPI(parentView: UIView) {
+        let pcr = UILabel()
+        let positive = UILabel()
+        let hospitalize = UILabel()
+        let severe = UILabel()
+        let death = UILabel()
+        let discharge = UILabel()
+        
+        let size = CGSize(width: 200, height: 40)
+        let leftX = view.frame.size.width * 0.38
+        let rightX = view.frame.size.width * 0.85
+        let font = UIFont.systemFont(ofSize: 35, weight: .heavy)
+        let color = colors.blue
+        
+        setUpAPILabel(pcr, size: size, centerX: leftX, y: 60, font: font, color: color, parentView)
+        setUpAPILabel(positive, size: size, centerX: rightX, y: 60, font: font, color: color, parentView)
+        setUpAPILabel(hospitalize, size: size, centerX: leftX, y: 160, font: font, color: color, parentView)
+        setUpAPILabel(severe, size: size, centerX: rightX, y: 160, font: font, color: color, parentView)
+        setUpAPILabel(death, size: size, centerX: leftX, y: 260, font: font, color: color, parentView)
+        setUpAPILabel(discharge, size: size, centerX: rightX, y: 260, font: font, color: color, parentView)
+        
+        CovidAPI.getTotal(completion: {(result: CovidInfo.Total) -> Void in
+            DispatchQueue.main.async {
+                pcr.text = "\(result.pcr)"
+                positive.text = "\(result.positive)"
+                hospitalize.text = "\(result.hospitalize)"
+                severe.text = "\(result.severe)"
+                death.text = "\(result.death)"
+                discharge.text = "\(result.discharge)"
+            }
+        })
+    }
+    
+    func setUpAPILabel(_ label: UILabel, size: CGSize, centerX: CGFloat, y: CGFloat, font: UIFont, color: UIColor, _ parentView: UIView) {
+        label.frame.size = size
+        label.center.x = centerX
+        label.frame.origin.y = y
+        label.textColor = color
+        parentView.addSubview(label)
     }
     
     func setUpImageButton(_ name: String, x: CGFloat) -> UIButton {

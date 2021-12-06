@@ -14,6 +14,8 @@
 		E431CE872759F63200918CBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E431CE862759F63200918CBF /* Assets.xcassets */; };
 		E431CE8A2759F63200918CBF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E431CE882759F63200918CBF /* LaunchScreen.storyboard */; };
 		E431CE922759F8D100918CBF /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E431CE912759F8D100918CBF /* Colors.swift */; };
+		E431CE94275E2C8300918CBF /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E431CE93275E2C8300918CBF /* Entity.swift */; };
+		E431CE96275E2D4800918CBF /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E431CE95275E2D4800918CBF /* API.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		E431CE892759F63200918CBF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E431CE8B2759F63200918CBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E431CE912759F8D100918CBF /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		E431CE93275E2C8300918CBF /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		E431CE95275E2D4800918CBF /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,8 @@
 				E431CE7D2759F63200918CBF /* AppDelegate.swift */,
 				E431CE7F2759F63200918CBF /* SceneDelegate.swift */,
 				E431CE812759F63200918CBF /* ViewController.swift */,
+				E431CE93275E2C8300918CBF /* Entity.swift */,
+				E431CE95275E2D4800918CBF /* API.swift */,
 				E431CE912759F8D100918CBF /* Colors.swift */,
 				E431CE832759F63200918CBF /* Main.storyboard */,
 				E431CE862759F63200918CBF /* Assets.xcassets */,
@@ -142,8 +148,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E431CE822759F63200918CBF /* ViewController.swift in Sources */,
+				E431CE94275E2C8300918CBF /* Entity.swift in Sources */,
 				E431CE922759F8D100918CBF /* Colors.swift in Sources */,
 				E431CE7E2759F63200918CBF /* AppDelegate.swift in Sources */,
+				E431CE96275E2D4800918CBF /* API.swift in Sources */,
 				E431CE802759F63200918CBF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

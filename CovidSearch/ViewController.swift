@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         setUpLabel("退院者数", size: size, centerX: rightX, y: 220, font: labelFont, color: color, contentView)
         
         let height = view.frame.size.height / 2
-        setUpButton("健康管理", size: size, y: height + 190, color: colors.blue, parentView: view)
+        setUpButton("健康管理", size: size, y: height + 190, color: colors.blue, parentView: view).addTarget(self, action: #selector(goHealthCheck), for: .touchDown)
         setUpButton("県別状況", size: size, y: height + 240, color: colors.blue, parentView: view)
         setUpImageButton("chat", x: view.frame.size.width - 50).addTarget(self, action:
             #selector(chatAction), for: .touchDown)
@@ -132,7 +132,11 @@ class ViewController: UIViewController {
         print("タップchat")
     }
     
-    func setUpButton(_ title: String, size: CGSize, y: CGFloat, color: UIColor, parentView: UIView){
+    @objc func goHealthCheck() {
+        performSegue(withIdentifier: "goHealthCheck", sender: nil)
+    }
+    
+    func setUpButton(_ title: String, size: CGSize, y: CGFloat, color: UIColor, parentView: UIView) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
         button.frame.size = size
@@ -142,6 +146,7 @@ class ViewController: UIViewController {
         button.frame.origin.y = y
         button.setTitleColor(color, for: .normal)
         parentView.addSubview(button)
+        return button
     }
     
     func setUpLabel(_ text: String, size: CGSize, centerX: CGFloat,y: CGFloat, font: UIFont, color: UIColor, _ parentView: UIView){

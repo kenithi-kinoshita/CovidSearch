@@ -78,6 +78,14 @@ class HealthCheckViewController: UIViewController {
         resultButton.backgroundColor = colors.blue
         resultButton.addTarget(self, action: #selector(resultButtonAction), for: [.touchUpInside, .touchUpOutside])
         scrollView.addSubview(resultButton)
+        
+        // 診断済みの場合はボタンを押せなくする処理
+        if UserDefaults.standard.string(forKey: today) != nil {
+            resultButton.isEnabled = false
+            resultButton.setTitle("診断済み", for: .normal)
+            resultButton.backgroundColor = .white
+            resultButton.setTitleColor(.gray, for: .normal)
+        }
     }
     
     @objc func resultButtonAction() {
@@ -101,6 +109,8 @@ class HealthCheckViewController: UIViewController {
                     self.dismiss(animated: true, completion: nil)
                 }
             })
+            // 診断結果をローカルに保存
+            UserDefaults.standard.set(resultTitle, forKey: self.today)
         })
         let noAction = UIAlertAction(title: "キャンセル", style: .destructive, handler: nil)
         alert.addAction(yesAction)
@@ -180,6 +190,7 @@ extension HealthCheckViewController: FSCalendarDataSource, FSCalendarDelegate, F
         }
         return colors.black
     }
+    
     // 祝日かどうかを判定
     func judgeHoliday(_ date: Date) -> Bool {
         let calendar = Calendar(identifier: .gregorian)

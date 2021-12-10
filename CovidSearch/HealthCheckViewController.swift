@@ -14,8 +14,6 @@ class HealthCheckViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         view.backgroundColor = .systemGroupedBackground
         
         let scrollView = UIScrollView()
@@ -26,6 +24,9 @@ class HealthCheckViewController: UIViewController {
         let calendar = FSCalendar()
         calendar.frame = CGRect(x: 20, y: 10, width: view.frame.size.width - 40, height: 300)
         scrollView.addSubview(calendar)
+        calendar.appearance.headerTitleColor = colors.bluePurple
+        calendar.appearance.weekdayTextColor = colors.bluePurple
+        calendar.delegate = self
         
         let checkLabel = UILabel()
         checkLabel.text = "健康チェック"
@@ -72,8 +73,8 @@ class HealthCheckViewController: UIViewController {
         resultButton.backgroundColor = colors.blue
         resultButton.addTarget(self, action: #selector(resultButtonAction), for: [.touchUpInside, .touchUpOutside])
         scrollView.addSubview(resultButton)
-        
     }
+    
     @objc func resultButtonAction() {
         print("resultButtonTapped")
     }
@@ -92,6 +93,7 @@ class HealthCheckViewController: UIViewController {
         uiSwitch.addTarget(self, action: action, for: .valueChanged)
         parentView.addSubview(uiSwitch)
     }
+    
     func createLabel(parentView: UIView, text: String) {
         let label = UILabel()
         label.text = text
@@ -117,16 +119,44 @@ class HealthCheckViewController: UIViewController {
         uiView.layer.shadowOffset = CGSize(width: 0, height: 2)
         return uiView
     }
-    
+}
 
-    /*
-    // MARK: - Navigation
+extension HealthCheckViewController: FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance {
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // Delegate で紐づけた関数
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
+        if dateFormatter(day: date) == dateFormatter(day: Date()) {
+            return colors.bluePurple
+        }
+        return .clear
     }
-    */
-
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderDefaultColorFor date: Date) -> UIColor? {
+        if dateFormatter(day: date) == dateFormatter(day: Date()) {
+            return colors.bluePurple
+        }
+        return .clear
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderRadiusFor date: Date) -> CGFloat {
+        return 0.5
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        if judgeWeekday(date) == 1 {
+            return UIColor(red: 150/255, green: 30/255, blue: 0/255, alpha: 0.9)
+        } else if judgeWeekday(date) == 7 {
+            return UIColor(red: 0/255, green: 30/255, blue: 150/255, alpha: 0.9)
+        }
+        return colors.black
+    }
+    
+    // 曜日判定（日曜日：1/土曜日:7）
+    func judgeWeekday(_ date: Date) -> Int {
+        let calendar = Calendar(identifier: .gregorian)
+        return calendar.component(.weekday, from: date)
+    }
+    // ロジックのための自作関数
+    func dateFormatter(day: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: day)
+    }
 }

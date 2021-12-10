@@ -13,6 +13,7 @@ class HealthCheckViewController: UIViewController {
 
     let colors = Colors()
     var point = 0
+    var today = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,7 +81,24 @@ class HealthCheckViewController: UIViewController {
     @objc func resultButtonAction() {
         let alert = UIAlertController(title: "診断を完了しますか？", message: "診断は1日に1回までです", preferredStyle: .actionSheet)
         let yesAction = UIAlertAction(title: "完了", style: .default, handler: { action in
-            
+            var resultTitle = ""
+            var resultMessage = ""
+            if self.point >= 4 {
+                resultTitle = "高"
+                resultMessage = "感染している可能性が\n比較的高いです。\nPCR検査をしましょう。"
+            } else if self.point >= 2 {
+                resultTitle = "中"
+                resultMessage = "やや感染している可能性が\nあります。外出は控えましょう。"
+            } else {
+                resultTitle = "低"
+                resultMessage = "感染している可能性は\n今のところ低いです。\n今後も気をつけましょう"
+            }
+            let alert = UIAlertController(title: "感染してる可能性「\(resultTitle)」", message: resultMessage, preferredStyle: .alert)
+            self.present(alert, animated: true, completion: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            })
         })
         let noAction = UIAlertAction(title: "キャンセル", style: .destructive, handler: nil)
         alert.addAction(yesAction)

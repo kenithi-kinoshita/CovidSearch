@@ -32,6 +32,7 @@ class HealthCheckViewController: UIViewController {
         calendar.appearance.headerTitleColor = colors.bluePurple
         calendar.appearance.weekdayTextColor = colors.bluePurple
         calendar.delegate = self
+        calendar.dataSource = self
         
         let checkLabel = UILabel()
         checkLabel.text = "健康チェック"
@@ -164,6 +165,15 @@ class HealthCheckViewController: UIViewController {
 extension HealthCheckViewController: FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance {
 
     // Delegate で紐づけた関数
+    func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
+        if let result = UserDefaults.standard.string(forKey: dateFormatter(day: date)) {
+            return result
+        }
+        return ""
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, subtitleDefaultColorFor date: Date) -> UIColor? {
+        return .init(red: 0, green: 0, blue: 0, alpha: 0.7)
+    }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         if dateFormatter(day: date) == dateFormatter(day: Date()) {
             return colors.white

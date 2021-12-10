@@ -12,6 +12,7 @@ import CalculateCalendarLogic
 class HealthCheckViewController: UIViewController {
 
     let colors = Colors()
+    var point = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,15 +78,23 @@ class HealthCheckViewController: UIViewController {
     }
     
     @objc func resultButtonAction() {
-        print("resultButtonTapped")
+        let alert = UIAlertController(title: "診断を完了しますか？", message: "診断は1日に1回までです", preferredStyle: .actionSheet)
+        let yesAction = UIAlertAction(title: "完了", style: .default, handler: { action in
+            
+        })
+        let noAction = UIAlertAction(title: "キャンセル", style: .destructive, handler: nil)
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        present(alert, animated: true, completion: nil)
     }
     
     @objc func switchAction(sender: UISwitch) {
         if sender.isOn {
-            print("on")
+            point += 1
         } else {
-            print("off")
+            point -= 1
         }
+        // print("point:\(point)")
     }
     
     func createUISwitch(parentView: UIView, action: Selector) {
@@ -127,7 +136,7 @@ extension HealthCheckViewController: FSCalendarDataSource, FSCalendarDelegate, F
     // Delegate で紐づけた関数
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         if dateFormatter(day: date) == dateFormatter(day: Date()) {
-            return colors.bluePurple
+            return colors.white
         }
         return .clear
     }

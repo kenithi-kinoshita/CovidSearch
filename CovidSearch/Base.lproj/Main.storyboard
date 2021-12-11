@@ -20,6 +20,7 @@
                     </view>
                     <connections>
                         <segue destination="I9X-eR-5Og" kind="show" identifier="goHealthCheck" id="nJ3-vn-wNo"/>
+                        <segue destination="It6-lh-UK6" kind="show" identifier="goChart" id="hpP-tM-bbR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -41,6 +42,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UEv-BL-yGq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="770" y="70"/>
+        </scene>
+        <!--Chart View Controller-->
+        <scene sceneID="arJ-VP-wy7">
+            <objects>
+                <viewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="fullScreen" id="It6-lh-UK6" customClass="ChartViewController" customModule="CovidSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BE9-gZ-gcj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="HCa-oU-xIC"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="j5j-7i-Tdw"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p6e-Zd-tV8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="29" y="749"/>
         </scene>
     </scenes>
     <resources>

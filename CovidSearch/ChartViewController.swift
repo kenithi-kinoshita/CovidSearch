@@ -10,9 +10,17 @@ import UIKit
 class ChartViewController: UIViewController {
     
     let colors = Colors()
+    var prefecture = UILabel()
+    var pcr = UILabel()
+    var pcrCount = UILabel()
+    var cases = UILabel()
+    var casesCount = UILabel()
+    var deaths = UILabel()
+    var deathsCount = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 60)
@@ -64,16 +72,29 @@ class ChartViewController: UIViewController {
         uiView.layer.shadowRadius = 10
         view.addSubview(uiView)
         
-        bottomLabel(uiView, 1, 10, text: "東京", size: 30, weight: .ultraLight, color: colors.black)
-        bottomLabel(uiView, 0.39, 50, text: "PCR数", size: 15, weight: .bold, color: colors.bluePurple)
-        bottomLabel(uiView, 0.39, 85, text: "2222222", size: 50, weight: .bold, color: colors.blue)
-        bottomLabel(uiView, 1, 50, text: "感染者数", size: 15, weight: .bold, color: colors.bluePurple)
-        bottomLabel(uiView, 1, 85, text: "22222", size: 30, weight: .bold, color: colors.blue)
-        bottomLabel(uiView, 1.61, 50, text: "死者数", size: 15, weight: .bold, color: colors.bluePurple)
-        bottomLabel(uiView, 1.61, 85, text: "2222", size: 30, weight: .bold, color: colors.blue)
         
+        bottomLabel(uiView, prefecture,1, 10, text: "東京", size: 30, weight: .ultraLight, color: colors.black)
+        bottomLabel(uiView, pcr, 0.39, 50, text: "PCR数", size: 15, weight: .bold, color: colors.bluePurple)
+        bottomLabel(uiView, pcrCount, 0.39, 85, text: "", size: 50, weight: .bold, color: colors.blue)
+        bottomLabel(uiView, cases, 1, 50, text: "感染者数", size: 15, weight: .bold, color: colors.bluePurple)
+        bottomLabel(uiView, casesCount, 1, 85, text: "22222", size: 30, weight: .bold, color: colors.blue)
+        bottomLabel(uiView, deaths, 1.61, 50, text: "死者数", size: 15, weight: .bold, color: colors.bluePurple)
+        bottomLabel(uiView, deathsCount, 1.61, 85, text: "2222", size: 30, weight: .bold, color: colors.blue)
+        
+
         view.backgroundColor = .systemGroupedBackground
+        
+        
+        for i in 0..<CovidSinglton.shared.prefecture.count {
+            if CovidSinglton.shared.prefecture[i].name_ja == "東京" {
+                prefecture.text = CovidSinglton.shared.prefecture[i].name_ja
+                pcrCount.text = "\(CovidSinglton.shared.prefecture[i].pcr)"
+                casesCount.text = "\(CovidSinglton.shared.prefecture[i].cases)"
+                deathsCount.text = "\(CovidSinglton.shared.prefecture[i].deaths)"
+            }
+        }
     }
+    
     @objc func switchAction(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -92,8 +113,8 @@ class ChartViewController: UIViewController {
     @objc func goCircle() {
         print("tappedNextButton")
     }
-    func bottomLabel(_ parentView: UIView, _ x: CGFloat, _ y: CGFloat, text: String, size: CGFloat, weight: UIFont.Weight, color: UIColor) {
-        let label = UILabel()
+    func bottomLabel(_ parentView: UIView, _ label: UILabel, _ x: CGFloat, _ y: CGFloat, text: String, size: CGFloat, weight: UIFont.Weight, color: UIColor) {
+
         label.text = text
         label.textColor = color
         label.textAlignment = .center

@@ -15,4 +15,12 @@ struct CovidInfo: Codable {
         var death: Int
         var discharge: Int
     }
+    
+    struct Prefecture: Codable {
+        var id: Int
+        var name_ja: String
+        var cases: Int
+        var deaths: Int
+        var pcr: Int
+    }
 }

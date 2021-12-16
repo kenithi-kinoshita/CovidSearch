@@ -54,10 +54,29 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="j5j-7i-Tdw"/>
+                    <connections>
+                        <segue destination="5Tx-Yz-Fuw" kind="show" identifier="goCircle" id="XG0-hv-I5q"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p6e-Zd-tV8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="29" y="749"/>
+        </scene>
+        <!--Circle Chart View Controller-->
+        <scene sceneID="gDc-vf-GnH">
+            <objects>
+                <viewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="fullScreen" id="5Tx-Yz-Fuw" customClass="CircleChartViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JKj-KS-rUe">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="70N-oR-GGI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="lfl-zJ-CN9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HUF-oS-wIG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="770" y="749"/>
         </scene>
     </scenes>
     <resources>

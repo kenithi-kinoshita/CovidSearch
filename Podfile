@@ -8,5 +8,6 @@ target 'CovidSearch' do
   # Pods for CovidSearch
   pod 'FSCalendar'
   pod 'CalculateCalendarLogic'
+  pod 'Charts'
 
 end

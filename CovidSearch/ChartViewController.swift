@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Charts
 
 class ChartViewController: UIViewController {
     
@@ -17,6 +18,8 @@ class ChartViewController: UIViewController {
     var casesCount = UILabel()
     var deaths = UILabel()
     var deathsCount = UILabel()
+    var array:[CovidInfo.Prefecture] = []
+    var chartView:HorizontalBarChartView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +96,39 @@ class ChartViewController: UIViewController {
                 deathsCount.text = "\(CovidSinglton.shared.prefecture[i].deaths)"
             }
         }
+        
+        chartView = HorizontalBarChartView(frame: CGRect(x: 0, y: 150, width: view.frame.size.width, height: 300))
+        chartView.animate(yAxisDuration: 1.0, easingOption: .easeOutCirc)
+        chartView.xAxis.labelCount = 10
+        chartView.xAxis.labelTextColor = colors.bluePurple
+        chartView.doubleTapToZoomEnabled = false
+        chartView.delegate = self
+        chartView.pinchZoomEnabled = false
+        chartView.leftAxis.labelTextColor = colors.bluePurple
+        chartView.xAxis.drawGridLinesEnabled = false
+        chartView.legend.enabled = false
+        chartView.rightAxis.enabled = false
+        
+        array = CovidSinglton.shared.prefecture
+        dataSet()
+    }
+    func dataSet() {
+        var names:[String] = []
+        for i in 0...9 {
+            names += ["\(self.array[i].name_ja)"]
+        }
+        chartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: names)
+        
+        var entries:[BarChartDataEntry] = []
+        for i in 0...9 {
+            entries += [BarChartDataEntry(x: Double(i), y: Double(array[i].cases))]
+        }
+            let set = BarChartDataSet(entries: entries, label: "県別状況")
+            set.colors = [colors.blue]
+            set.valueTextColor = colors.bluePurple
+            set.highlightColor = colors.white
+            chartView.data = BarChartData(dataSet: set)
+            view.addSubview(chartView)
     }
     
     @objc func switchAction(sender: UISegmentedControl) {
@@ -134,4 +170,8 @@ extension ChartViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         print("キャンセルボタンがタップ")
     }
+}
+//MARK: ChartViewDelegate
+extension ChartViewController: ChartViewDelegate {
+    
 }

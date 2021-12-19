@@ -22,6 +22,7 @@ class ChartViewController: UIViewController {
     var array:[CovidInfo.Prefecture] = []
     var chartView:HorizontalBarChartView!
     var pattern = "cases"
+    var searchBar = UISearchBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +60,7 @@ class ChartViewController: UIViewController {
         segment.addTarget(self, action: #selector(switchAction), for: .valueChanged)
         view.addSubview(segment)
         
-        let searchBar = UISearchBar()
+        searchBar = UISearchBar()
         searchBar.frame = CGRect(x: 10, y: 100, width: view.frame.size.width - 20, height: 20)
         searchBar.delegate = self
         searchBar.placeholder = "都道府県を漢字で入力"
@@ -188,10 +189,17 @@ class ChartViewController: UIViewController {
 extension ChartViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("検索ボタンがタップ")
+        view.endEditing(true)
+        if let index = array.firstIndex(where: { $0.name_ja == searchBar.text }) {
+            prefecture.text = "\(array[index].name_ja)"
+            pcrCount.text = "\(array[index].pcr)"
+            casesCount.text = "\(array[index].cases)"
+            deathsCount.text = "\(array[index].deaths)"
+        }
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        print("キャンセルボタンがタップ")
+        view.endEditing(true)
+        searchBar.text = ""
     }
 }
 //MARK: ChartViewDelegate

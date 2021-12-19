@@ -171,7 +171,7 @@ class ChartViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @objc func goCircle() {
-        print("tappedNextButton")
+        performSegue(withIdentifier: "goCircle", sender: nil)
     }
     func bottomLabel(_ parentView: UIView, _ label: UILabel, _ x: CGFloat, _ y: CGFloat, text: String, size: CGFloat, weight: UIFont.Weight, color: UIColor) {
 

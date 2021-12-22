@@ -7,17 +7,30 @@
 
 import UIKit
 import FSCalendar
+import Firebase
+import FirebaseFirestore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        //FirebaseApp.configure()
+        FirebaseApp.configure()
         CovidAPI.getPrefecture(completion: {(result: [CovidInfo.Prefecture]) -> Void in
             CovidSinglton.shared.prefecture = result
         })
-        
+
+        /*Firestore.firestore().collection("users").document("Message").setData([
+            "UserMessage": "message" ,
+            "Date": "messeageDate" ,
+            "UserId": "messageId"
+        ],merge: false) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        }*/
         return true
     }
 

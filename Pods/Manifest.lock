@@ -4,23 +4,39 @@ PODS:
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
   - FSCalendar (2.8.2)
+  - InputBarAccessoryView (5.4.0):
+    - InputBarAccessoryView/Core (= 5.4.0)
+  - InputBarAccessoryView/Core (5.4.0)
+  - MessageInputBar (0.4.1):
+    - MessageInputBar/Core (= 0.4.1)
+  - MessageInputBar/Core (0.4.1)
+  - MessageKit (3.7.0):
+    - InputBarAccessoryView (~> 5.4.0)
 
 DEPENDENCIES:
   - CalculateCalendarLogic
   - Charts
   - FSCalendar
+  - MessageInputBar
+  - MessageKit
 
 SPEC REPOS:
   trunk:
     - CalculateCalendarLogic
     - Charts
     - FSCalendar
+    - InputBarAccessoryView
+    - MessageInputBar
+    - MessageKit
 
 SPEC CHECKSUMS:
   CalculateCalendarLogic: d14189787cd47766e64281b2686608afea07ae4d
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
+  InputBarAccessoryView: 74d471ab1fa1736806be50328df79257e52865a9
+  MessageInputBar: e81c7535347f1f7b923de7080409a535a004b6e4
+  MessageKit: 8e76dd8d65ad44b49e1651c673497146416461e9
 
-PODFILE CHECKSUM: daf62c49135235c1e93a190e6f949d87696790d4
+PODFILE CHECKSUM: 3d2ffe0da2f3c0fe672fbf341fdea59333fce481
 
 COCOAPODS: 1.11.2

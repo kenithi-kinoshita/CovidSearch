@@ -9,5 +9,6 @@ target 'CovidSearch' do
   pod 'FSCalendar'
   pod 'CalculateCalendarLogic'
   pod 'Charts'
-
+  pod 'MessageKit'
+  pod 'MessageInputBar'
 end

@@ -2,3 +2,6 @@ ${PODS_ROOT}/Target Support Files/Pods-CovidSearch/Pods-CovidSearch-frameworks.s
 ${BUILT_PRODUCTS_DIR}/CalculateCalendarLogic/CalculateCalendarLogic.framework
 ${BUILT_PRODUCTS_DIR}/Charts/Charts.framework
 ${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework
+${BUILT_PRODUCTS_DIR}/InputBarAccessoryView/InputBarAccessoryView.framework
+${BUILT_PRODUCTS_DIR}/MessageInputBar/MessageInputBar.framework
+${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework

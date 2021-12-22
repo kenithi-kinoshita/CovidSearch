@@ -129,7 +129,7 @@ class ViewController: UIViewController {
     }
     
     @objc func chatAction() {
-        print("タップchat")
+        performSegue(withIdentifier: "goChat", sender: nil)
     }
     
     @objc func goHealthCheck() {

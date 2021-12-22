@@ -13,6 +13,8 @@ import FirebaseFirestore
 class ChatViewController: MessagesViewController, /*MessagesDataSource,*/ MessageCellDelegate, MessagesLayoutDelegate, MessagesDisplayDelegate {
     
     let colors = Colors()
+    var userId = ""
+    var firestoreData:[FirestoreData] = []
 //    func currentSender() -> SenderType {
 //        <#code#>
 //    }
@@ -28,8 +30,35 @@ class ChatViewController: MessagesViewController, /*MessagesDataSource,*/ Messag
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Firestore.firestore().collection("Messages").document().setData([
+            "date": Date(),
+            "senderId": "testId" ,
+            "text": "testText" ,
+            "userName": "testName"
+        ])
+        Firestore.firestore().collection("Messages").getDocuments(completion: {
+            (document, error) in
+            if error != nil {
+                print("ChatViewController:Line(\(#line)):error:\(error!)")
+            } else {
+                if let document = document {
+                    for i in 0..<document.count {
+                        var storeData = FirestoreData()
+                        storeData.date = (document.documents[i].get("date")! as! Timestamp).dateValue()
+                        storeData.senderId = document.documents[i].get("senderId")! as? String
+                        storeData.text = document.documents[i].get("text")! as? String
+                        storeData.userName = document.documents[i].get("userName")! as? String
+                        self.firestoreData.append(storeData)
+                        print(self.firestoreData)
+                    }
+                }
+            }
+        })
 
-        // Do any additional setup after loading the view.
+        if let uuid = UIDevice.current.identifierForVendor?.uuidString {
+            userId = uuid
+            print(userId)
+        }
 //         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messageCellDelegate = self
         messagesCollectionView.messagesLayoutDelegate = self

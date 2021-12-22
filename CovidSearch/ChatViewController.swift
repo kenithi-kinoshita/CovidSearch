@@ -9,24 +9,70 @@ import UIKit
 import MessageKit
 import InputBarAccessoryView
 import FirebaseFirestore
+import MapKit
 
-class ChatViewController: MessagesViewController, /*MessagesDataSource,*/ MessageCellDelegate, MessagesLayoutDelegate, MessagesDisplayDelegate {
+struct Sender: SenderType {
+    var senderId: String
+    var displayName: String
+}
+struct Message: MessageType {
+    var sender: SenderType
+    var messageId: String
+    var sentDate: Date
+    var kind: MessageKind
+    
+    private init(kind: MessageKind, sender: Sender, messageId: String, date: Date) {
+        self.kind = kind
+        self.sender = sender
+        self.messageId = messageId
+        self.sentDate = date
+    }
+    init(text: String, sender: Sender, messageId: String, date: Date) {
+        self.init(kind: .text(text), sender: sender, messageId: messageId, date: date)
+    }
+    init(attributedText: NSAttributedString, sender: Sender, messageId: String, date: Date) {
+        self.init(kind: .attributedText(attributedText), sender: sender, messageId: messageId, date: date)
+    }
+}
+
+class ChatViewController: MessagesViewController, MessagesDataSource, MessageCellDelegate, MessagesLayoutDelegate, MessagesDisplayDelegate {
     
     let colors = Colors()
-    var userId = ""
-    var firestoreData:[FirestoreData] = []
-//    func currentSender() -> SenderType {
-//        <#code#>
-//    }
-//
-//    func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
-//        <#code#>
-//    }
-//
-//    func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
-//        <#code#>
-//    }
+    private var userId = ""
+    private var firestoreData:[FirestoreData] = []
+    private var messages: [Message] = []
+    func currentSender() -> SenderType {
+        return Sender(senderId: userId, displayName: "MyName")
+    }
+    func otherSender() -> SenderType {
+        return Sender(senderId: "-1", displayName: "OtherName")
+    }
+
+    func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
+        return messages[indexPath.section]
+    }
+
+    func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
+        return messages.count
+    }
     
+    //text、date、id から Message をイニシャライズして返す
+    func createMessage(text: String, date: Date, _ senderId: String) -> Message {
+        let attributedText = NSAttributedString(string: text, attributes: [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.white])
+        let sender = (senderId == userId) ? currentSender() : otherSender()
+        return Message(attributedText: attributedText, sender: sender as! Sender, messageId: UUID().uuidString, date: date)
+    }
+    
+    //messages にメッセージを代入するためにデータを整理
+    func getMessages() -> [Message] {
+        var messageArray:[Message] = []
+        for i in 0..<firestoreData.count {
+            messageArray.append(createMessage(text: firestoreData[i].text!, date: firestoreData[i].date!, firestoreData[i].senderId!))
+        }
+        return messageArray
+    }
+
+        
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,9 +95,11 @@ class ChatViewController: MessagesViewController, /*MessagesDataSource,*/ Messag
                         storeData.text = document.documents[i].get("text")! as? String
                         storeData.userName = document.documents[i].get("userName")! as? String
                         self.firestoreData.append(storeData)
-                        print(self.firestoreData)
                     }
                 }
+                self.messages = self.getMessages()
+                self.messagesCollectionView.reloadData()
+                self.messagesCollectionView.scrollToBottom()
             }
         })
 
@@ -59,7 +107,7 @@ class ChatViewController: MessagesViewController, /*MessagesDataSource,*/ Messag
             userId = uuid
             print(userId)
         }
-//         messagesCollectionView.messagesDataSource = self
+        messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messageCellDelegate = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self

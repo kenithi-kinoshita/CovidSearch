@@ -62,7 +62,20 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
         let sender = (senderId == userId) ? currentSender() : otherSender()
         return Message(attributedText: attributedText, sender: sender as! Sender, messageId: UUID().uuidString, date: date)
     }
-    
+    //MARK:MessagesDisplayDelegate
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        return isFromCurrentSender(message: message) ? colors.blueGreen : colors.redOrenge
+    }
+    func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        return 16
+    }
+    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        let dateString = formatter.string(from: message.sentDate)
+        return NSAttributedString(string: dateString, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
+    }
     //messages にメッセージを代入するためにデータを整理
     func getMessages() -> [Message] {
         var messageArray:[Message] = []

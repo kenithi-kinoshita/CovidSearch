@@ -88,6 +88,10 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
         for i in 0..<firestoreData.count {
             messageArray.append(createMessage(text: firestoreData[i].text!, date: firestoreData[i].date!, firestoreData[i].senderId!))
         }
+        messageArray.sort(by: {
+            a, b -> Bool in
+            return a.sentDate < b.sentDate
+        })
         return messageArray
     }
 

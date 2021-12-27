@@ -76,6 +76,12 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
         let dateString = formatter.string(from: message.sentDate)
         return NSAttributedString(string: dateString, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
     }
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        let avatar: Avatar
+        avatar = Avatar(image: UIImage(named: isFromCurrentSender(message: message) ? "me": "doctor"))
+        avatarView.set(avatar: avatar)
+    }
+    
     //messages にメッセージを代入するためにデータを整理
     func getMessages() -> [Message] {
         var messageArray:[Message] = []
@@ -175,4 +181,29 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessageCel
 }
 extension ChatViewController: InputBarAccessoryViewDelegate {
     
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+        for component in inputBar.inputTextView.components {
+            if let text = component as? String {
+                let attributedText = NSAttributedString(string: text, attributes: [.font: UIFont.systemFont(ofSize: 15), .foregroundColor: UIColor.white])
+                let message = Message(attributedText: attributedText, sender: currentSender() as! Sender, messageId: UUID().uuidString, date: Date())
+                messages.append(message)
+                messagesCollectionView.insertSections([messages.count - 1])
+                sendToFirestore(message: text)
+            }
+        }
+        inputBar.inputTextView.text = ""
+        messagesCollectionView.scrollToBottom()
+    }
+    func sendToFirestore(message: String) {
+        Firestore.firestore().collection("Messages").document().setData([
+            "date": Date(),
+            "senderId": userId,
+            "text": message,
+            "userName": userId
+        ],merge: false) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            }
+        }
+    }
 }

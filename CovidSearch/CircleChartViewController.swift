@@ -60,7 +60,7 @@ class CircleChartViewController: UIViewController {
         view.addSubview(searchBar)
         
         let uiView = UIView()
-        uiView.frame = CGRect(x: 10, y: 480, width: view.frame.size.width - 20, height: 167)
+        uiView.frame = CGRect(x: 10, y: view.frame.size.height - 200, width: view.frame.size.width - 20, height: 167)
         uiView.layer.cornerRadius = 10
         uiView.backgroundColor = .white
         uiView.layer.shadowColor = colors.black.cgColor
@@ -122,7 +122,7 @@ class CircleChartViewController: UIViewController {
                 entrys += [PieChartDataEntry(value: Double(array[i].deaths), label: array[i].name_ja)]
             }
         }
-        let circleView = PieChartView(frame: CGRect(x: 0, y: 150, width: view.frame.size.width, height: 300))
+        let circleView = PieChartView(frame: CGRect(x: 0, y: 150, width: view.frame.size.width, height: view.frame.size.height - 353))
         circleView.centerText = "Top5"
         circleView.animate(xAxisDuration: 2, easingOption: .easeOutExpo)
         let dataSet = PieChartDataSet(entries: entrys)

@@ -11,4 +11,5 @@ target 'CovidSearch' do
   pod 'Charts'
   pod 'MessageKit'
   pod 'MessageInputBar'
+  pod 'PKHUD'
 end

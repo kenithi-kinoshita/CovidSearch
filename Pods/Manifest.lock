@@ -12,6 +12,7 @@ PODS:
   - MessageInputBar/Core (0.4.1)
   - MessageKit (3.7.0):
     - InputBarAccessoryView (~> 5.4.0)
+  - PKHUD (5.3.0)
 
 DEPENDENCIES:
   - CalculateCalendarLogic
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - FSCalendar
   - MessageInputBar
   - MessageKit
+  - PKHUD
 
 SPEC REPOS:
   trunk:
@@ -28,6 +30,7 @@ SPEC REPOS:
     - InputBarAccessoryView
     - MessageInputBar
     - MessageKit
+    - PKHUD
 
 SPEC CHECKSUMS:
   CalculateCalendarLogic: d14189787cd47766e64281b2686608afea07ae4d
@@ -36,7 +39,8 @@ SPEC CHECKSUMS:
   InputBarAccessoryView: 74d471ab1fa1736806be50328df79257e52865a9
   MessageInputBar: e81c7535347f1f7b923de7080409a535a004b6e4
   MessageKit: 8e76dd8d65ad44b49e1651c673497146416461e9
+  PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
 
-PODFILE CHECKSUM: 3d2ffe0da2f3c0fe672fbf341fdea59333fce481
+PODFILE CHECKSUM: b3e5a705c60882f980c33cb749bca798ff067bd8
 
 COCOAPODS: 1.11.2
